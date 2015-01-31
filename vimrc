@@ -46,10 +46,11 @@ Bundle 'mkitt/tabline.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'msanders/snipmate.vim'
-" Bundle 'aperezdc/vim-template'
+Bundle 'aperezdc/vim-template'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'sigidagi/vim-cmake-project'
 " Bundle 'vim-scripts/OmniCppComplete'
+Bundle 'chriskempson/vim-tomorrow-theme'
 
 call vundle#end()
 filetype plugin indent on " required
@@ -110,14 +111,17 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+
 set nu
+set t_Co=256
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-colorscheme monokai
+" set background=dark
+colorscheme Tomorrow-Night
 
 """"""""""""""""""""""""""""""
 " airline
@@ -150,8 +154,6 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
-
-" set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -207,6 +209,12 @@ set wrap "Wrap lines
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+"
+" " Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -240,6 +248,8 @@ map <F5> :CMakeCompile<CR>
 map <F6> :CMakeBuild<CR>
 map <F7> :CMakeClean<CR>
 
+map <F10> :Bclose<CR>
+
 " nnoremap <F3> :call GetCtrlKState()<CR>
 " nnoremap <C-k> :call CtrlKNavigateSymbols()<CR>
 nnoremap <F2> :YcmCompleter GoTo<CR>
@@ -262,6 +272,12 @@ inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Es
 inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
