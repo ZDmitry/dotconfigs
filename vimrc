@@ -33,6 +33,9 @@ let g:cmake_cxx_compiler = 'gcc'
 let g:cmake_cxx_compiler = 'g++'
 let g:cmake_build_directories = [ 'build' ]
 
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
@@ -51,6 +54,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'sigidagi/vim-cmake-project'
 " Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'octol/vim-cpp-enhanced-highlight'
 
 call vundle#end()
 filetype plugin indent on " required
@@ -121,7 +125,7 @@ set t_Co=256
 " Enable syntax highlighting
 syntax enable
 " set background=dark
-colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Eighties
 
 """"""""""""""""""""""""""""""
 " airline
@@ -163,13 +167,14 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Redefine ftype
+au BufRead,BufNewFile *.h set ft=cpp
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -231,10 +236,10 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 
-augroup project
-    autocmd!
-    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
-augroup END
+" augroup project
+"    autocmd!
+"    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+" augroup END
 
 set completeopt=longest,menuone
 
@@ -250,11 +255,11 @@ map <F7> :CMakeClean<CR>
 
 map <F10> :Bclose<CR>
 
-" nnoremap <F3> :call GetCtrlKState()<CR>
-" nnoremap <C-k> :call CtrlKNavigateSymbols()<CR>
+" switch between header/source with F4
+map <F4> :e %:p:s,.h$,.X123X,:s,.hpp,.X123X,:s,.cpp$,.h,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>
+" goTo definition/declaration
 nnoremap <F2> :YcmCompleter GoTo<CR>
-nnoremap <C-F2> :YcmCompleter GoToImplementationElseDeclaration<CR>
-" nnoremap <F12> :call CtrlKGetReferences()<CR>
+" goTo func decl/impl
 
 ino <C-\> <C-r>=TriggerSnippet()<CR>
 snor <C-\> <Esc>i<Right><C-r>=TriggerSnippet()<CR>
