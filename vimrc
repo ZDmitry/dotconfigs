@@ -45,6 +45,8 @@ Bundle 'bling/vim-airline'
 Bundle 'mkitt/tabline.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
+Bundle 'msanders/snipmate.vim'
+" Bundle 'aperezdc/vim-template'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'sigidagi/vim-cmake-project'
 " Bundle 'vim-scripts/OmniCppComplete'
@@ -185,6 +187,7 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
+set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 
@@ -233,15 +236,18 @@ set completeopt=longest,menuone
 
 map <F3> :NERDTreeToggle<CR>
 
-map <S-F5> :CMakeBuild
-map <F5> :CMakeCompile
-map <F7> :CMakeClean
+map <F5> :CMakeCompile<CR>
+map <F6> :CMakeBuild<CR>
+map <F7> :CMakeClean<CR>
 
 " nnoremap <F3> :call GetCtrlKState()<CR>
 " nnoremap <C-k> :call CtrlKNavigateSymbols()<CR>
 nnoremap <F2> :YcmCompleter GoTo<CR>
-nnoremap <S-F2> :YcmCompleter GoToImplementationElseDeclaration<CR>
+nnoremap <C-F2> :YcmCompleter GoToImplementationElseDeclaration<CR>
 " nnoremap <F12> :call CtrlKGetReferences()<CR>
+
+ino <C-\> <C-r>=TriggerSnippet()<CR>
+snor <C-\> <Esc>i<Right><C-r>=TriggerSnippet()<CR>
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
