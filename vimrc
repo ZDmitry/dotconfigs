@@ -174,7 +174,9 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Redefine ftype
-au BufRead,BufNewFile *.h set ft=cpp
+au BufRead,BufNewFile *.h  set ft=cpp
+au BufRead,BufNewFile *.cl set ft=c
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -233,7 +235,7 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " => MISC
 """"""""""""""""""""""""""""""
 
-set colorcolumn=110
+set colorcolumn=160
 highlight ColorColumn ctermbg=darkgray
 
 " augroup project
@@ -254,6 +256,7 @@ map <F6> :CMakeBuild<CR>
 map <F7> :CMakeClean<CR>
 
 map <F10> :Bclose<CR>
+map <C-F10> :qa!<CR>
 
 " switch between header/source with F4
 map <F4> :e %:p:s,.h$,.X123X,:s,.hpp,.X123X,:s,.cpp$,.h,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>
