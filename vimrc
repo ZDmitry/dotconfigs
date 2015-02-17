@@ -26,16 +26,6 @@ nmap <leader>w :w!<cr>
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
-
-let g:cmake_cxx_compiler = 'gcc'
-let g:cmake_cxx_compiler = 'g++'
-let g:cmake_build_directories = [ 'build' ]
-
-let g:cpp_class_scope_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
@@ -48,7 +38,10 @@ Bundle 'bling/vim-airline'
 Bundle 'mkitt/tabline.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
-Bundle 'msanders/snipmate.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+" Bundle 'ervandew/supertab'
+" Bundle 'msanders/snipmate'
 Bundle 'aperezdc/vim-template'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'sigidagi/vim-cmake-project'
@@ -178,6 +171,27 @@ au BufRead,BufNewFile *.h  set ft=cpp
 au BufRead,BufNewFile *.cl set ft=c
 
 
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
+
+let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+
+let g:UltiSnipsExpandTrigger="<c-t>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+
+let g:cmake_cxx_compiler = 'gcc'
+let g:cmake_cxx_compiler = 'g++'
+let g:cmake_build_directories = [ 'build' ]
+
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -272,13 +286,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
     \ '<C-n><C-r>=pumvisible() ? "\<Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
     \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<Down>" : ""<CR>'
-
-" open omni completion menu closing previous if open and opening new menu without changing the text
-inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
-            \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
-" open user completion menu closing previous if open and opening new menu without changing the text
-inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
-            \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 
 
 " Remove the Windows ^M - when the encodings gets messed up
