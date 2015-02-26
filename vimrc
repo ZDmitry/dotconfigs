@@ -167,11 +167,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Redefine ftype
-au BufRead,BufNewFile *.h  set ft=cpp
-au BufRead,BufNewFile *.cl set ft=c
-
-
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
 
@@ -294,6 +289,17 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Redefine ftype
+au BufRead,BufNewFile *.h   set ft=cpp
+au BufRead,BufNewFile *.cl  set ft=c
+au BufRead,BufNewFile *.ejs set ft=html
+
+au FileType javascript set tabstop=2 | set shiftwidth=2 | set softtabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
