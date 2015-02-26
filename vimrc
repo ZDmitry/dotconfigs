@@ -111,7 +111,7 @@ set tm=500
 
 set nu
 set t_Co=256
-set t_ut=
+" set t_ut=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -121,6 +121,7 @@ syntax enable
 " set background=dark
 colorscheme Tomorrow-Night-Eighties
 
+hi Normal ctermfg=252 ctermbg=none
 """"""""""""""""""""""""""""""
 " airline
 """"""""""""""""""""""""""""""
