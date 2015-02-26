@@ -121,7 +121,8 @@ syntax enable
 " set background=dark
 colorscheme Tomorrow-Night-Eighties
 
-hi Normal ctermfg=252 ctermbg=none
+hi Normal  ctermbg=none
+hi NonText ctermbg=none
 """"""""""""""""""""""""""""""
 " airline
 """"""""""""""""""""""""""""""
