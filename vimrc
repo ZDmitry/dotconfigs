@@ -43,7 +43,7 @@ Bundle 'honza/vim-snippets'
 " Bundle 'ervandew/supertab'
 " Bundle 'msanders/snipmate'
 Bundle 'aperezdc/vim-template'
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'sigidagi/vim-cmake-project'
 " Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'chriskempson/vim-tomorrow-theme'
@@ -278,12 +278,9 @@ nnoremap <F2> :YcmCompleter GoTo<CR>
 ino <C-\> <C-r>=TriggerSnippet()<CR>
 snor <C-\> <Esc>i<Right><C-r>=TriggerSnippet()<CR>
 
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-    \ '<C-n><C-r>=pumvisible() ? "\<Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<Down>" : ""<CR>'
-
+inoremap <expr> <Nul> Auto_complete_string()
+inoremap <expr> <C-Space> Auto_complete_string()
+nnoremap <C-L> :nohl<CR><C-L>
 
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
@@ -361,3 +358,21 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+" Autocompleteon helper
+function! Auto_complete_string()
+    if pumvisible()
+        return "\<C-n>"
+    else
+        return "\<C-x>\<C-o>\<C-r>=Auto_complete_opened()\<CR>"
+    end
+endfunction
+
+function! Auto_complete_opened()
+    if pumvisible()                                            
+        return "\<c-n>\<c-p>\<c-n>"                            
+    else                                                       
+        return "\<bs>\<C-n>"                                   
+    end        
+endfunction
+
