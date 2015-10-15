@@ -2,6 +2,10 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# include os info
+UNAME=$(uname -s | tr "[:upper:]" "[:lower:]")
+ARCH=$(uname -m | tr "[:upper:]" "[:lower:]")
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -31,12 +35,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+       # We have color support; assume it's compliant with Ecma-48
+       # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+       # a case would tend to support setf rather than setaf.)
+       color_prompt=yes
     else
-	color_prompt=
+       color_prompt=
     fi
 fi
 
@@ -79,7 +83,7 @@ alias l='ls -CF'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # attach to exist tmux session
-alias tmux="TERM=xterm-256color tmux attach || TERM=xterm-256color tmux new
+alias tmux="TERM=xterm-256color tmux attach || TERM=xterm-256color tmux new"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -98,12 +102,20 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  elif [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+    . /opt/local/etc/profile.d/bash_completion.sh
   fi
 fi
 
-export ANDROID_SDK=~/tools/android-sdk
-export ANDROID_NDK=~/tools/android-ndk
-export PATH=$PATH:${ANDROID_SDK}/bin
+if [ "$UNAME" == "darwin" ]; then
+    GNUUTILS="/opt/local/libexec/gnubin/"
+    PORTUTILS="/opt/local/bin:/opt/local/sbin:${GNUUTILS}"
+fi
+
+export ANDROID_SDK="${HOME}/tools/android-sdk"
+export ANDROID_NDK="${HOME}/tools/android-ndk"
+
+export PATH=${PORTUTILS}:${ANDROID_SDK}/tools:${ANDROID_SDK}/platform-tools:$PATH
 
 # If not running interactively, do not do anything
 # [[ $- != *i* ]] && return
@@ -112,3 +124,4 @@ export PATH=$PATH:${ANDROID_SDK}/bin
 if [ -f ~/.ora_env ]; then
     . ~/.ora_env
 fi
+
